@@ -1,0 +1,7 @@
+# Archivos que conviene mantener al día en el Project de Claude (uno por línea, acepta comodines).
+AGENTS.md
+CLAUDE.md
+ROADMAP.md
+SYNC.md
+docs/*.md
+docs/adr/*.md

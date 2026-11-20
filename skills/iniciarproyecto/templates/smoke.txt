@@ -1,0 +1,5 @@
+# Rutas para el smoke post-deploy. Formato: <ruta> <status esperado> [texto que debe aparecer]
+# Se corre con: bash scripts/smoke-test.sh https://tu-app.vercel.app
+/ 200
+/api/health 200 ok
+/ruta-que-no-existe 404

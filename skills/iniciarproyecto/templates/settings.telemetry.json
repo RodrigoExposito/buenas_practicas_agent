@@ -1,0 +1,10 @@
+{
+  "_comment": "OPCIONAL. Mergear en .claude/settings.local.json (no se commitea). Requiere un colector OpenTelemetry escuchando en el endpoint. Sin esto, /auditarsesion igual funciona leyendo la transcripción local.",
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317"
+  }
+}

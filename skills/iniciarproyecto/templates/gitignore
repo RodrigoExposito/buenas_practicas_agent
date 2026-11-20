@@ -1,0 +1,32 @@
+# deps y builds
+node_modules/
+.next/
+dist/
+build/
+out/
+coverage/
+*.tsbuildinfo
+
+# entorno y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# bases locales
+*.db
+*.sqlite
+*.sqlite3
+
+# claude local
+.claude/settings.local.json
+.claude/reports/
+
+# assets
+.assets-originales/
+
+# sistema
+.DS_Store
+Thumbs.db
+*.log

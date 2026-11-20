@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Bloquea: secretos en stage, unicode invisible, atribución a herramientas IA.
+set -euo pipefail
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+# 1. Secretos
+bad=$(git diff --cached --name-only --diff-filter=ACM | grep -E '(^|/)\.env($|\.)|\.pem$|\.key$|id_rsa' | grep -v '\.env\.example$' || true)
+if [ -n "$bad" ]; then
+  echo "pre-commit: archivos sensibles en stage:"; echo "$bad"
+  echo "Sacalos con: git restore --staged <archivo>"
+  exit 1
+fi
+
+git diff --cached -U0 | grep -E '^\+' | grep -Ei '(sk-ant-[a-z0-9-]{20,}|sk-[a-z0-9]{32,}|AKIA[0-9A-Z]{16}|ghp_[a-zA-Z0-9]{36}|-----BEGIN (RSA |EC )?PRIVATE KEY)' >/dev/null && {
+  echo "pre-commit: parece haber una clave o token en el diff. Revisalo antes de commitear."
+  exit 1
+} || true
+
+# 2. Huellas IA bloqueantes
+if [ -f scripts/ai-lint.py ]; then
+  python3 scripts/ai-lint.py staged
+fi
