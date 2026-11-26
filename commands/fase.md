@@ -1,5 +1,5 @@
 ---
-description: Implementa la siguiente fase - programador, verificador, prueba humana, commit
+description: Implementa la siguiente fase - programador, verificador, review, prueba humana, commit
 argument-hint: "[letra o nombre de fase; vacío = la siguiente pendiente]"
 ---
 
@@ -20,18 +20,24 @@ Delegá al subagente **verificador** (contexto limpio, sin el razonamiento del p
 > Verificá la fase "<nombre>" de ROADMAP.md contra sus criterios de aceptación. Informe en el formato fijo.
 
 - **RECHAZADA** → volvé al paso 2 con el informe (máximo 2 vueltas; a la tercera, `/rescate`).
+  En cada vuelta el programador corrige lo que marca el informe y nada más: si se cambian varias cosas a la vez no se sabe cuál arregló o rompió qué.
 - **NO VERIFICABLE** → mostrale al humano qué falta (acceso, datos, servicio) y esperá.
 - **APROBADA** → seguí.
 
-## 4. Gate de flujos críticos
+## 4. Review del diff
+Corré `/revisar` sobre los cambios sin commitear de la fase (tres revisores en paralelo y validación).
+- **SIN HALLAZGOS** → seguí.
+- **CON HALLAZGOS** → volvé al paso 2 con la tabla de hallazgos confirmados, y después repetí el paso 3. Cuenta dentro de las 2 vueltas.
+
+## 5. Gate de flujos críticos
 Corré `python3 scripts/critical-flows.py check --strict` solo sobre los CF que toca la fase y `python3 scripts/critical-flows.py run`.
 Si algún CF de esta fase falla o no tiene test, la fase **no cierra**.
 
-## 5. Prueba humana
+## 6. Prueba humana
 Mostrá la sección "Para el humano" del informe del verificador como checklist y **esperá confirmación explícita**.
 No avances con un "dale" ambiguo si el checklist tenía puntos: pedí que confirme que los probó.
 
-## 6. Cerrar
+## 7. Cerrar
 - Marcá la fase `[x]` en `ROADMAP.md`.
 - Corré `/commit`.
 - Sugerí `/cerrarsesion`.
