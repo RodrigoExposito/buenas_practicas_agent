@@ -1,0 +1,60 @@
+# Review automática de pull requests con anthropics/claude-code-action.
+#
+# Opcional. Requiere el secret ANTHROPIC_API_KEY en el repo (Settings > Secrets and variables > Actions)
+# y cada review consume tokens de esa clave.
+#
+# Decisiones de seguridad:
+# - Permisos mínimos: lee el código y comenta en el PR. No puede pushear ni mergear.
+# - Los PRs de forks no se revisan (comportamiento por defecto de la action). No actives allow_fork_prs
+#   ni allowed_bots: '*' sin leer docs/security.md del repo de la action.
+# - Usa el token del workflow, nunca un personal access token.
+# - El evento es `pull_request`, no `pull_request_target`: un PR de fork no recibe los secrets del repo.
+#   No cambies el evento ni agregues un `ref:` propio al checkout.
+
+name: Claude review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+permissions: {}
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request. Read AGENTS.md first.
+
+            Report only high-signal issues in the changed code:
+            - code that will not compile or parse, or references that do not exist
+            - logic that produces a wrong result regardless of input
+            - errors that are swallowed or hidden behind a fallback
+            - clear violations of a rule in AGENTS.md (quote the rule)
+            - a critical flow (CF-xx in docs/ARCHITECTURE.md) changed without its test
+
+            Do not report style, naming, pre-existing problems, subjective suggestions
+            or anything a linter would catch. If you are not certain an issue is real, leave it out.
+
+            Use inline comments for specific issues and one short top-level summary.
+            If there is nothing to report, say so in one line.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
