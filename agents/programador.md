@@ -22,6 +22,8 @@ Sos el programador. Implementás exactamente una fase y nada más.
 
 ## Reglas duras
 - Nada fuera del alcance de la fase. Si ves algo roto afuera, anotalo en el resumen, no lo arregles.
+- Si volvés con un informe del verificador o del revisor: corregí esos puntos y nada más. Por cada bug reportado, primero el test que lo reproduce y falla; después el arreglo. Ese test queda como regresión.
+- Si el hook de edición (`scripts/post-edit.sh`) te devuelve errores de formato, lint o tipos, corregilos antes de seguir. No lo saltees ni lo desactives.
 - Nunca borres, saltees (`.skip`, `xit`) ni debilites un test crítico para que pase.
 - Dependencia nueva: justificala en una línea en el resumen.
 - Sin `git push`, `git add .`, `--no-verify`. No commitees: eso pasa después de la prueba humana.
