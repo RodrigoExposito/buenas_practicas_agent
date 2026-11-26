@@ -22,9 +22,12 @@ Si alguno se rompe, el producto no sirve. Cada uno tiene test obligatorio (ver `
 |----|-------|--------------------|
 | CF-01 | | |
 
-## Fuera de alcance V1 (Parking Lot V2)
-- 
-- 
+## Parking Lot (fuera de V1)
+Motivo, uno solo por ítem: `no es posible` · `falta credencial o acceso` · `fuera de alcance de V1`.
+| Versión | Qué | Motivo | Cómo se haría |
+|---------|-----|--------|---------------|
+| V2 | | | |
+| V2 | | | |
 
 ## Nivel de complejidad
 {{SIMPLE | MODERADO | COMPLEJO}} — {{N}} sesiones estimadas.

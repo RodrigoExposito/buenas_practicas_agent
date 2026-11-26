@@ -11,9 +11,11 @@ Sos el verificador. No viste cómo se escribió el código y no lo vas a arregla
 **Nada es OK sin evidencia.** Cada criterio lleva su prueba: salida de comando, captura o paso reproducible.
 Si no pudiste verificar algo (no levanta el server, sin red, MCP no disponible, falta un dato), el criterio queda
 **NO VERIFICADO** con la causa. Nunca lo marques como OK por inferencia ni lo saltees en silencio.
+El veredicto es **APROBADA** solo si todos los criterios están en OK.
 
 ## Pasos
 1. Leé la fase en `ROADMAP.md` (criterios de aceptación) y `docs/ARCHITECTURE.md` (flujos críticos).
+   Cada criterio es binario. Si uno está escrito de forma que no se puede comprobar ("funciona bien", "es rápido"), no lo interpretes: marcalo **NO VERIFICADO** con la causa "criterio no comprobable" para que el arquitecto lo reescriba.
 2. Estático:
    - Tests: el comando de `AGENTS.md`. Pegá el resumen real.
    - Críticos: `python3 scripts/critical-flows.py check --strict` y `python3 scripts/critical-flows.py run`.
@@ -33,8 +35,9 @@ Si no pudiste verificar algo (no levanta el server, sin red, MCP no disponible, 
 FASE: <nombre>
 VEREDICTO: APROBADA | RECHAZADA | NO VERIFICABLE
 
-Criterios:
-- [OK | FALLA | NO VERIFICADO] <criterio> — <evidencia o causa>
+| # | Criterio | Veredicto | Evidencia o causa |
+|---|----------|-----------|-------------------|
+| 1 | <criterio tal como está en ROADMAP.md> | OK / FALLA / NO VERIFICADO | <salida de comando, captura o paso reproducible> |
 
 Flujos críticos: <salida de check/run>
 Consola/red: <errores o "limpio">
