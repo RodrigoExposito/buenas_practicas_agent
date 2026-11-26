@@ -6,7 +6,7 @@
 - `arquitecto` (Opus): plan, datos, ADRs. No toca código de producto.
 - `programador` (Sonnet): implementa UNA fase con TDD.
 - `verificador` (Sonnet): QA ciego. No edita. Tests + navegador + flujos críticos.
-- `revisor` (Sonnet): lee el diff con un foco (bugs, convenciones, fallos silenciosos). No edita.
+- `revisor` (Opus): lee el diff con un foco (bugs, convenciones, fallos silenciosos). No edita.
 
 ## Comandos del kit
 - `/retomar` dónde estamos · `/fase` implementar la siguiente fase · `/commit` commits por grupo lógico

@@ -130,7 +130,7 @@ No toca código de producto.
 │       ├── ai-lint.py           huellas IA en texto
 │       └── clean-assets.sh      metadata IA en imágenes/video (exiftool/ffmpeg)
 ├── agents/   arquitecto (opus) · programador (sonnet) · verificador (sonnet, QA en navegador)
-│             revisor (sonnet, lee el diff con un foco)
+│             revisor (opus, lee el diff con un foco)
 └── commands/ retomar · fase · commit (haiku) · cerrarsesion · rescate (opus) · humanizar
               auditarsesion · postdeploy · revisarcomponente · revisar
 ```
@@ -156,7 +156,7 @@ Notas:
 - El hook de edición solo corre herramientas que el proyecto ya tiene instaladas (prettier, eslint, tsc, ruff).
   Sin ninguna, no hace nada. `POST_EDIT_TSC=0` saltea el chequeo de tipos si tsc es lento en tu proyecto.
   Usa `.venv/bin/ruff` si existe, porque los hooks heredan el PATH del shell y no el del entorno virtual.
-- El `revisor` usa Sonnet. Si querés más profundidad en el foco de bugs, cambiá `model:` a `opus` en `agents/revisor.md`.
+- El `revisor` usa Opus: cada `/revisar` lanza tres revisores y una validación por hallazgo. Si el costo pesa, cambiá `model:` a `sonnet` en `agents/revisor.md`.
 - El workflow de CI necesita el secret `ANTHROPIC_API_KEY` y consume tokens en cada PR. No pushea ni mergea.
 - Proyectos creados con v2: copiá `scripts/post-edit.sh` y agregá el bloque `PostToolUse` de `templates/settings.json`
   a mano; los agentes y comandos se actualizan solos al reinstalar.
