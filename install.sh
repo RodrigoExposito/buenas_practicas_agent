@@ -36,7 +36,7 @@ if [ $dry = 0 ]; then
 fi
 
 echo
-echo "Kit /iniciarproyecto v2 → $dest"
+echo "Kit /iniciarproyecto v3 → $dest"
 echo "  nuevos o actualizados: $installed · sin cambios: $same · backups: $backed"
 [ $backed -gt 0 ] && echo "  (backups con sufijo .bak-$stamp)"
 
@@ -49,6 +49,6 @@ cat <<'EOF'
 
 Siguiente:
   1. Reiniciá Claude Code.
-  2. Verificá con /agents → arquitecto, programador, verificador.
+  2. Verificá con /agents → arquitecto, programador, verificador, revisor.
   3. En un repo: /iniciarproyecto <tu idea>
 EOF
